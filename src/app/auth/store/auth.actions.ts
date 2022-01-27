@@ -9,6 +9,5 @@ export const login = createAction(
 );
 
 export const logout = createAction(
-  `${TAG} User Logout`,
-  props<{user: User}>()
+  '[Top Menu] Logout'
 );

@@ -1,4 +1,5 @@
-import { createAction } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
+import { Course } from '../../model/course';
 
 const TAG = '[Courses Resolver]';
 
@@ -7,6 +8,7 @@ export const loadAllCourses = createAction(
 );
 
 export const allCoursesLoaded = createAction(
-  `[Load Courses Effect] All Courses Loaded`
+  `[Load Courses Effect] All Courses Loaded`,
+  props<{courses: Course[]}>()
 );
 
