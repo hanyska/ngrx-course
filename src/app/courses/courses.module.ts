@@ -23,7 +23,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {RouterModule, Routes} from '@angular/router';
 import { CoursesResolver } from './courses.resolver';
 import { EffectsModule } from '@ngrx/effects';
-import { CoursesEffects } from './course/store/courses.effects';
+import { CoursesEffects } from './store/courses.effects';
 import { StoreModule } from '@ngrx/store';
 import { coursesReducer } from './store/coures.reducers';
 

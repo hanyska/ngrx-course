@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { CoursesHttpService } from '../services/courses-http.service';
 import { Update } from '@ngrx/entity';
 import { Store } from '@ngrx/store';
-import { courseUpdated } from '../course/store/course.actions';
+import { courseUpdated } from '../store/course.actions';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -15,15 +15,10 @@ import { courseUpdated } from '../course/store/course.actions';
   styleUrls: ['./edit-course-dialog.component.css']
 })
 export class EditCourseDialogComponent {
-
   form: FormGroup;
-
   dialogTitle: string;
-
   course: Course;
-
   mode: 'create' | 'update';
-
   loading$: Observable<boolean>;
 
   constructor(private fb: FormBuilder,

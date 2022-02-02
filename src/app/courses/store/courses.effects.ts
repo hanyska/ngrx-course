@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { allCoursesLoaded, loadAllCourses } from './course.actions';
-import { CoursesHttpService } from '../../services/courses-http.service';
+import { allCoursesLoaded, courseUpdated, loadAllCourses } from './course.actions';
+import { CoursesHttpService } from '../services/courses-http.service';
 import { concatMap, map } from 'rxjs/operators';
 
 @Injectable()
@@ -15,5 +15,13 @@ export class CoursesEffects {
     concatMap(_ => this.coursesHttpService.findAllCourses()),
     map(courses => allCoursesLoaded({courses}))
   ));
+
+  saveCourse$ = createEffect(() => this.actions$.pipe(
+    ofType(courseUpdated),
+    concatMap((action) => this.coursesHttpService.saveCourse(
+      action.update.id,
+      action.update.changes
+    ))
+  ), {dispatch: false});
 
 }

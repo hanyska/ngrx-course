@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { filter, finalize, first, tap } from 'rxjs/operators';
-import { loadAllCourses } from './course/store/course.actions';
+import { loadAllCourses } from './store/course.actions';
 import { AppState } from '../app.reducers';
 import { areCoursesLoaded } from './store/courses.selectors';
 
