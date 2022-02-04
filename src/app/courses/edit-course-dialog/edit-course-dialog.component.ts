@@ -60,6 +60,10 @@ export class EditCourseDialogComponent {
     if (this.mode === 'update') {
       this.coursesEntityService.update(course);
       this.dialogRef.close();
+    } else if (this.mode === 'create') {
+      this.coursesEntityService
+        .add(course)
+        .subscribe(_ => this.dialogRef.close());
     }
   }
 
