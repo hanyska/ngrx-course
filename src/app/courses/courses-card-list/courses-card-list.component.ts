@@ -1,49 +1,37 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
-import {Course} from "../model/course";
-import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import {EditCourseDialogComponent} from "../edit-course-dialog/edit-course-dialog.component";
-import {defaultDialogConfig} from '../shared/default-dialog-config';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Course } from '../model/course';
+import { MatDialog } from '@angular/material/dialog';
+import { EditCourseDialogComponent } from '../edit-course-dialog/edit-course-dialog.component';
+import { defaultDialogConfig } from '../shared/default-dialog-config';
+import { CoursesEntityService } from '../services/courses-entity.service';
 
 @Component({
-    selector: 'courses-card-list',
-    templateUrl: './courses-card-list.component.html',
-    styleUrls: ['./courses-card-list.component.css']
+  // tslint:disable-next-line:component-selector
+  selector: 'courses-card-list',
+  templateUrl: './courses-card-list.component.html',
+  styleUrls: ['./courses-card-list.component.css']
 })
-export class CoursesCardListComponent implements OnInit {
+export class CoursesCardListComponent {
+  @Input() courses: Course[];
+  @Output() courseChanged = new EventEmitter();
 
-    @Input()
-    courses: Course[];
+  constructor(private dialog: MatDialog,
+              private coursesEntityService: CoursesEntityService) {}
 
-    @Output()
-    courseChanged = new EventEmitter();
+  editCourse(course: Course) {
+    const dialogConfig = defaultDialogConfig();
+    dialogConfig.data = {
+      dialogTitle: 'Edit Course',
+      course,
+      mode: 'update'
+    };
+    this.dialog.open(EditCourseDialogComponent, dialogConfig)
+      .afterClosed()
+      .subscribe(() => this.courseChanged.emit());
+  }
 
-    constructor(
-      private dialog: MatDialog ) {
-    }
-
-    ngOnInit() {
-
-    }
-
-    editCourse(course:Course) {
-
-        const dialogConfig = defaultDialogConfig();
-
-        dialogConfig.data = {
-          dialogTitle:"Edit Course",
-          course,
-          mode: 'update'
-        };
-
-        this.dialog.open(EditCourseDialogComponent, dialogConfig)
-          .afterClosed()
-          .subscribe(() => this.courseChanged.emit());
-
-    }
-
-  onDeleteCourse(course:Course) {
-
-
+  onDeleteCourse(course: Course) {
+    this.coursesEntityService.delete(course.id);
   }
 
 }
