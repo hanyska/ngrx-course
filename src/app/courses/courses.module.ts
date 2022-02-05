@@ -30,6 +30,8 @@ import { EntityDataService, EntityDefinitionService, EntityMetadataMap } from '@
 import { CoursesEntityService } from './services/courses-entity.service';
 import { compareCourses } from './model/course';
 import { CoursesDataService } from './services/courses-data.services';
+import { compareLessons } from './model/lesson';
+import { LessonEntityService } from './services/lesson-entity.service';
 
 
 export const coursesRoutes: Routes = [
@@ -53,6 +55,9 @@ const entityMetadata: EntityMetadataMap = {
     entityDispatcherOptions: {
       optimisticUpdate: true
     }
+  },
+  Lesson: {
+    sortComparer: compareLessons
   }
 };
 
@@ -96,7 +101,8 @@ const entityMetadata: EntityMetadataMap = {
     CoursesHttpService,
     CoursesResolver,
     CoursesEntityService,
-    CoursesDataService
+    CoursesDataService,
+    LessonEntityService
   ]
 })
 export class CoursesModule {
